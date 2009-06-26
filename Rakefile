@@ -92,3 +92,8 @@ else
 end
 
 task :default => [:spec]
+
+desc "Install the gem locally"
+task :install => [:package] do
+  sh %{sudo gem install pkg/aasm-#{$package_version}}
+end

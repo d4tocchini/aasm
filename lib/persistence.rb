@@ -10,6 +10,9 @@ module AASM
       if hierarchy.include?("ActiveRecord::Base")
         require File.join(File.dirname(__FILE__), 'persistence', 'active_record_persistence')
         base.send(:include, AASM::Persistence::ActiveRecordPersistence)
+      elsif hierarchy.include?("CouchRest::ExtendedDocument")
+        require File.join(File.dirname(__FILE__), 'persistence', 'couchrest_persistence')
+        base.send(:include, AASM::Persistence::CouchRestPersistence)
       end
     end
   end
