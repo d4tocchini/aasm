@@ -108,7 +108,6 @@ module AASM
       save_success = aasm_write_state(state)
     end
     self.aasm_current_state = state if save_success
-
     save_success
   end
 
@@ -127,9 +126,9 @@ module AASM
 
   def aasm_fire_event(name, persist, *args)
     aasm_state_object_for_state(aasm_current_state).call_action(:exit, self)
-
+    puts "CCURENT STATE ABOUT TO CHANGE: #{aasm_current_state.to_s}"
     new_state = self.class.aasm_events[name].fire(self, *args)
-    
+    puts "NEW STATE: #{new_state.to_s}"
     unless new_state.nil?
       aasm_state_object_for_state(new_state).call_action(:enter, self)
       
