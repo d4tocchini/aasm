@@ -39,7 +39,7 @@ module AASM
         base.send(:include, AASM::Persistence::CouchRestPersistence::WriteStateWithoutPersistence) unless base.method_defined?(:aasm_write_state_without_persistence)
         
         # should be a before_validation, but CouchRest doesn't yet support that
-        base.before_save :aasm_ensure_initial_state
+        base.set_callback :save, :before, :aasm_ensure_initial_state
       end
 
       module ClassMethods
